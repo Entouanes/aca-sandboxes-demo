@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101716">
+  <title>Sandbox Launchpad / Azure</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Sandbox Launchpad home">
+      <span class="brand-mark" aria-hidden="true">[&nbsp;]</span> SANDBOX / LAUNCHPAD
+    </a>
+    <span class="platform">AZURE CONTAINER APPS <span class="preview">SANDBOXES</span></span>
+  </header>
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">ISOLATED COMPUTE. SHARED MOMENTUM.</p>
+        <h1>From zero.<br>To <span class="accent">ready.</span></h1>
+        <p class="lede">Launch a fleet of isolated sandboxes.<br>Watch GitHub Copilot CLI come online, one workspace at a time.</p>
+      </div>
+      <form id="launch-form" class="launch-panel">
+        <div class="panel-heading"><span class="eyebrow">MISSION CONTROL</span><span id="mode" class="mode">CONNECTING</span></div>
+        <label for="access-key">Presenter access key</label>
+        <div class="key-row">
+          <input id="access-key" type="password" autocomplete="off" placeholder="Enter your demo key" required>
+          <button id="connect" class="small-button" type="button">Connect</button>
+        </div>
+        <label for="count">How many sandboxes?</label>
+        <div class="count-row">
+          <input id="count" type="number" min="1" max="50" step="1" value="12" required>
+          <span>1 vCPU / 2 GiB<br><span id="limit-label">up to 50 workspaces</span></span>
+        </div>
+        <button id="launch" class="primary-button" type="submit" disabled>Launch sandboxes <span aria-hidden="true">&#8599;</span></button>
+        <p class="panel-note">Readiness = a successful <code>copilot --version</code> probe.</p>
+      </form>
+    </section>
+    <div id="notice" class="notice" role="alert" hidden></div>
+    <section class="fleet" aria-labelledby="fleet-title">
+      <div class="fleet-heading">
+        <div><p class="eyebrow">LIVE TELEMETRY</p><h2 id="fleet-title">Your sandbox fleet</h2></div>
+        <div class="fleet-actions"><span id="connection" class="connection">Not connected</span><button id="cleanup" class="quiet-button" disabled>Delete fleet</button></div>
+      </div>
+      <div class="metrics" aria-live="polite" aria-atomic="true">
+        <div><span class="metric-label">PROVISIONING</span><strong id="provisioning-count">00</strong><span class="dot red"></span></div>
+        <div><span class="metric-label">INITIALIZING</span><strong id="initializing-count">00</strong><span class="dot orange"></span></div>
+        <div><span class="metric-label">READY</span><strong id="ready-count">00</strong><span class="dot green"></span></div>
+        <div><span class="metric-label">RUN TIME</span><strong id="elapsed">0.0<span>s</span></strong><span class="metric-label" id="error-count">0 ERRORS</span></div>
+      </div>
+      <div class="progress-track"><progress id="progress" value="0" max="1" aria-label="Fraction of sandboxes ready"></progress><span id="progress-label">Awaiting launch</span></div>
+      <div id="grid" class="sandbox-grid" aria-label="Sandbox readiness grid"></div>
+      <div id="empty" class="empty-state"><span class="empty-glyph" aria-hidden="true">[ + ]</span><h3>A clean slate.</h3><p>Choose your fleet size and launch.<br>Each tile is a real, hardware-isolated Azure workspace.</p></div>
+      <div class="legend">
+        <span><i class="dot red"></i> Allocating compute</span><span><i class="dot orange"></i> Initializing Copilot</span><span><i class="dot green"></i> Probe passed</span><span id="updated">No telemetry yet</span>
+      </div>
+    </section>
+    <section class="explainer">
+      <div><span class="step">01 / ALLOCATE</span><h3>A boundary of its own.</h3><p>Ubuntu microVMs are created in parallel in your Azure sandbox group.</p></div>
+      <div><span class="step">02 / INITIALIZE</span><h3>Tools, not assumptions.</h3><p>Node.js and GitHub Copilot CLI install inside each isolated workspace.</p></div>
+      <div><span class="step">03 / VERIFY</span><h3>Green means verified.</h3><p>The CLI must execute successfully. Installation errors stay red with a reason.</p></div>
+    </section>
+  </main>
+  <footer><span>BUILT FOR THE DEMO. ISOLATED BY DESIGN.</span><span>Authentication to Copilot is separate from CLI readiness.</span></footer>
+  <dialog id="details">
+    <div class="dialog-heading"><h2 id="detail-title"></h2><button id="close-details" class="quiet-button" aria-label="Close sandbox details">Close</button></div>
+    <p id="detail-message"></p><pre id="detail-output"></pre>
+  </dialog>
+</body>
+</html>

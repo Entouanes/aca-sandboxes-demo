@@ -1,0 +1,6 @@
+{
+  "name": "sandbox-launchpad",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test tests/ui.test.js" }
+}
